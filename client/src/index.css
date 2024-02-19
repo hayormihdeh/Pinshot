@@ -14,14 +14,24 @@
   --orangeLight : #dd5e14;
   --white100 : #ffffff;
   --dark100 : #0f1212;
+  --teal100 :  rgb(174, 195, 185);
+  --teal200 : rgb(70, 94, 83);
+  --grey100 : #e2e3e5;
+
+}
+
+body {
+   max-width: 1440px;
+    margin : 0 auto;
 }
 
 a{
   color : inherit !important
 }
 
-/* 
-button {
+
+ 
+/* button {
   border-radius: 8px;
   border: 1px solid transparent;
   padding: 0.6em 1.2em;
@@ -31,14 +41,28 @@ button {
   background-color: #1a1a1a;
   cursor: pointer;
   transition: border-color 0.25s;
-}
+} */
+
 button:hover {
-  border-color: #646cff;
+  filter: brightness(80%);
+  transition: 0.3s ease-in-out
 }
+
 button:focus,
 button:focus-visible {
   outline: 4px auto -webkit-focus-ring-color;
-} */
+} 
+
+.activeLink {
+  color : var(--teal200) !important;
+  transition : 0.3s ease-in-out
+}
+
+.no-activeLink:hover {
+  color : var(--teal200) !important;
+  transition : 0.3s ease-in-out
+}
+
 
 
 

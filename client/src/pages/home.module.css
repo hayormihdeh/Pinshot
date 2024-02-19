@@ -1,0 +1,34 @@
+.bgImg {
+    background-image: url("https://unsplash.com/photos/stNs_FzKuRA/download?force=true&w=640");
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    min-height: 100vh;
+    position: relative;
+  }
+  .hero {
+    z-index: 2;
+    opacity: 1;
+  }
+  .bgDark {
+    z-index: 1;
+    background-color: var(--dark100) !important;
+    opacity: 0.5;
+  }
+  .explore {
+    background-color: var(--teal100);
+    min-height: 100vh;
+  }
+  .imgAdjust {
+    width: 100%;
+    text-align: center;
+  }
+  .btn {
+    background-color: var(--orangeLight) !important;
+  }
+  
+  @media (min-width: 768px) {
+    .imgAdjust {
+      width: 550px;
+    }
+  }

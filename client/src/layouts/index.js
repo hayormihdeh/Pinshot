@@ -1,3 +1,4 @@
 import Roots from "./Root"
+import PageLayout from "./PageLayout"
 
-export { Roots }
+export { Roots, PageLayout }
