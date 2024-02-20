@@ -29,6 +29,11 @@ a{
   color : inherit !important
 }
 
+a:hover {
+  color : var(--teal200) !important;
+  transition : 0.3s ease-in-out
+}
+
 
  
 /* button {
@@ -54,13 +59,65 @@ button:focus-visible {
 } 
 
 .activeLink {
-  color : var(--teal200) !important;
+  color : var(--orangeLight) !important;
   transition : 0.3s ease-in-out
 }
 
 .no-activeLink:hover {
   color : var(--teal200) !important;
   transition : 0.3s ease-in-out
+}
+
+.my-masonry-grid {
+  display: -webkit-box; /* Not needed if autoprefixing */
+  display: -ms-flexbox; /* Not needed if autoprefixing */
+  display: flex;
+  margin-left: -30px; /* gutter size offset */
+  width: auto;
+}
+.my-masonry-grid_column {
+  padding-left: 30px; /* gutter size */
+  background-clip: padding-box;
+}
+
+/* Style your items */
+.my-masonry-grid_column > div { /* change div to reference your elements you put in <Masonry> */
+  margin-bottom: 30px;
+}
+
+.cardBox {
+  position: relative;
+}
+
+.focus-download{
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  z-index : 2
+}
+
+.focus-heart{
+  position: absolute;
+  top: 0;
+  right: 0;
+  z-index : 2
+}
+
+@media (min-width : 1200px){
+  .cardBox{
+    overflow: hidden;
+  }
+  .cardBox *{
+    transition: 0.3s ease all;
+  }
+.cardBox:hover img {
+  background-color: var(--dark100);
+  width: 100%;
+  height: 100%;
+  filter: brightness(60%) !important;
+  transition : 0.3s ease-in-out
+}
+
 }
 
 

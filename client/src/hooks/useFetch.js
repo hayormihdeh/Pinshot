@@ -1,8 +1,8 @@
 import { useState, useEffect, useMemo } from 'react';
 
 export default function useFetch(api, params, extra) {
-  const [getData, setData] = useState([]);
-  const [pagedData, setpagedData] = useState([]);
+  const [getData, setData] = useState([]);//for state that does not involve pagination
+  const [pagedData, setpagedData] = useState([]); //state that involve pagination
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
 
