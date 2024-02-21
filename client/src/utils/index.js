@@ -1,3 +1,3 @@
 import Spinner  from "./Spinner";
-
-export { Spinner}
+import registerOptions from "./formValidate";
+export { Spinner, registerOptions}

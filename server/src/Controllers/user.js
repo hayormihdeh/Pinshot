@@ -61,16 +61,19 @@ export const signUp = async (req, res, next) => {
 
       if (!messageLink)
         return next(createHttpError(400, 'Verification message not sent'));
-      await sendEmail({
+      const sendMail = await sendEmail({
         userName: userName,
         from: env.USER_MAIL_LOGIN,
         to: user.email,
         subject: 'Email verification link',
         text: `Hello, ${userName}, please verify your email by clicking on this link : ${messageLink}. LInk expires  in 30 minutes`,
       });
+      if(!sendMail){
+        return next(createHttpError(404, "Verification message could not be sent"))
+      }
       res
         .status(201)
-        .json({ access_token, msg: 'User registration successful' });
+        .json({ sendMail, access_token, msg: 'User registration successful' });
     }
   } catch (error) {
     next(error);
@@ -99,14 +102,17 @@ export const sendEmailVerificationLink = async (req, res, next) => {
 
     if (!messageLink)
       return next(createHttpError(400, 'Verification message not sent'));
-    await sendEmail({
+   const sendMail =  await sendEmail({
       userName: user.userName,
       from: env.USER_MAIL_LOGIN,
       to: user.email,
       subject: 'Email verification link',
       text: `Hello, ${user.userName}, please verify your email by clicking on this link : ${messageLink}. LInk expires  in 30 minutes`,
     });
-    res.status(200).json({ msg: 'Verification message sent' });
+    if(!sendMail){
+      return next(createHttpError(404, "Verification message could not be sent"))
+    }
+    res.status(200).json({ sendMail });
   } catch (error) {
     next(error);
   }

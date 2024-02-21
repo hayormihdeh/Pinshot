@@ -1,6 +1,7 @@
 import express, { json } from "express"
 import createHttpError, {isHttpError} from "http-errors"
 import morgan from 'morgan'
+import cors from "cors"
 import authRoutes from './routes/user.js'
 import pinRoutes from './routes/pin.js'
 import searchRoutes from './routes/search.js'
@@ -8,6 +9,7 @@ import commentRoutes from "./routes/comment.js"
 
 const app = express()
 app.use(morgan("dev"))
+app.use(cors())
 app.use(json({ limit : "25mb" }))
 app.use(express.urlencoded({ limit : "25mb", extended:true }))
 

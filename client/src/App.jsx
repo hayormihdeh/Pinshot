@@ -1,12 +1,13 @@
-
-import { AppRoutes } from "@routes"
-
+import { AppRoutes } from '@routes';
+import { AuthProvider } from '@config';
+import { ToastContainer } from 'react-toastify';
 
 function App() {
   return (
-    <>
-    <AppRoutes/>
-    </>
+    <AuthProvider>
+      <ToastContainer />
+      <AppRoutes />
+    </AuthProvider>
   );
 }
 

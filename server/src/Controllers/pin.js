@@ -16,6 +16,9 @@ export const createAPin = async (req, res, next) => {
       return next(createHttpError(400, 'Invalid userId or parameters missing'));
     }
     const user = await User.findById(userId);
+    if(!user.isVerified){
+      return next(createHttpError(401, "Email not verified, pls verify to create a pin"))
+    }
     const pinData = {
       userId: user._id,
       title: pinParams.title,
@@ -67,10 +70,10 @@ export const getRandomPins = async (req, res, next) => {
   try {
     const cachedPins = cache.get(cacheKey);
     if (cachedPins) {
-      res.status(200).json(cachedPins);
+      return res.status(200).json(cachedPins);
     }
     const count = await Pin.countDocuments();
-    const pins = await Pin.aggregate([{ $sample: { size: 2 } }])
+    const pins = await Pin.aggregate([{ $sample: { size: 60 } }])
       .skip(skipCount)
       .limit(limit);
 
@@ -309,10 +312,10 @@ export const deleteAPin = async (req, res, next) => {
   }
 }
 
-//Getting related Pins
+//Getting related tags
 export const getRelatedPins = async (req, res, next) => {
   const {id: pinId} = req.params
-  if (!isValidObjectId(userId) || !isValidObjectId(pinId)) {
+  if (!isValidObjectId(pinId)) {
     return next(createHttpError(400, 'invalid user or pin id'));
   }
   try {
