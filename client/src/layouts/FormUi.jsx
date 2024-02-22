@@ -22,6 +22,7 @@ export default function FormUi({
       <Form className="form shadow-lg bg-light bg-opacity-75" onSubmit={onSubmit}>
         <div className="z-3">
           <div className="text-center mb-4">
+            <Link to = "/">
             <Image
               src={
                 'https://res.cloudinary.com/ceenobi/image/upload/v1706179614/pintube/Frame_16_ecr4pq.svg'
@@ -29,6 +30,7 @@ export default function FormUi({
               alt="logo"
               style={{ width: '130px', height: 'fit-content' }}
             />
+            </Link>
           </div>
           <p className="mb-4 text-center text-uppercase fw-bold fs-4">
             {title}
@@ -64,5 +66,5 @@ FormUi.propTypes = {
   path: PropTypes.string,
   btnText: PropTypes.string,
   isSubmitting : PropTypes.bool,
-  onSubmit : PropTypes.string
+  onSubmit : PropTypes.func
 };

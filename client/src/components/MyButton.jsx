@@ -13,5 +13,5 @@ MyButton.propTypes = {
   text: PropTypes.string,
   className: PropTypes.string,
   variant: PropTypes.string,
-  props: PropTypes.object,
+  props: PropTypes.any,
 };

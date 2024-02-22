@@ -1,16 +1,18 @@
 import { useTitle, useAuthContext } from '@hooks';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { useForm } from 'react-hook-form';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { FormUi, FormFields } from '@layouts';
 import { registerOptions } from '@utils';
 import { userService } from '@services';
+import { toast } from 'react-toastify';
 
 //UseContext in react
 //uselocation to know the path that ure on
 //useNavigate is used to redirect ur user to another page
 
 export default function Login() {
+  useTitle('Login to PINSHOT');
   const [showPassword, setShowPassword] = useState(false);
   const location = useLocation();
   const navigate = useNavigate();
@@ -20,15 +22,39 @@ export default function Login() {
     formState: { errors, isSubmitting },
   } = useForm();
 
-  useTitle('Login to PINSHOT');
+  
+
+  const {loggedInUser} = useAuthContext()
+
+  useEffect(()=> {
+    if (loggedInUser){
+      navigate("/explore")
+    }
+  },[loggedInUser, navigate])
 
   const togglePassword = () => {
     setShowPassword(prev => !prev);
   };
 
-  const onFormSubmit = async (data) => {
-    console.log(data)
-  }
+  const onFormSubmit = async ({ userName, password }) => {
+    //remembering the username and the password
+    sessionStorage.setItem("username", userName)
+    try {
+      const { status, data } = await userService.login(userName, password);
+      if (status === 200) {
+       localStorage.setItem("userToken", JSON.stringify(data.access_token))
+        toast.success(data.msg);
+        window.location.replace("/explore")
+      }
+    } catch (error) {
+      console.log(error);
+      if (error.response && error.response.data && error.response.data.error) {
+        toast.error(error.response.data.error);
+      } else {
+        toast.error(error.response.data || 'something went wrong');
+      }
+    }
+  };
 
   return (
     <FormUi
@@ -37,8 +63,8 @@ export default function Login() {
       to="/signup"
       path="Sign Up"
       btnText="Login"
-      onSubmit = {handleSubmit(onFormSubmit)}
-      isSubmitting = {isSubmitting}
+      onSubmit={handleSubmit(onFormSubmit)}
+      isSubmitting={isSubmitting}
     >
       <FormFields
         register={register}
@@ -59,9 +85,9 @@ export default function Login() {
         className="my-1 text-black position-relative"
         id="password"
         label="Password"
-        name="Password"
+        name="password"
         type="password"
-        placeholder="password"
+        placeholder="Password"
         showPassword={showPassword}
         togglePassword={togglePassword}
       />

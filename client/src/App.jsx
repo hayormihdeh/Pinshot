@@ -5,7 +5,7 @@ import { ToastContainer } from 'react-toastify';
 function App() {
   return (
     <AuthProvider>
-      <ToastContainer />
+      <ToastContainer position = "bottom-right" theme = "dark"  pauseOnHover/>
       <AppRoutes />
     </AuthProvider>
   );
